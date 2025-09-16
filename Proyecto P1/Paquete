@@ -1,10 +1,10 @@
-Public class Paquete;{
+public class Paquete {
 
-    private int IdPaquete;
-    private String Destinatario;
-    Private String Fechaingreso;
+    private int idPaquete;
+    private String destinatario;
+    private String fechaIngreso;
 
-     public Paquete(int idPaquete, String destinatario, String fechaIngreso) {
+    public Paquete(int idPaquete, String destinatario, String fechaIngreso) {
         this.idPaquete = idPaquete;
         this.destinatario = destinatario;
         this.fechaIngreso = fechaIngreso;
@@ -24,9 +24,8 @@ Public class Paquete;{
 
     @Override
     public String toString() {
-        return "Paquete ID: " + idPaquete + 
-               ", Destinatario: " + destinatario + 
-               ", Fecha Ingreso: " + fechaIngreso;
+        return "Paquete [ID=" + idPaquete +
+               ", Destinatario=" + destinatario +
+               ", FechaIngreso=" + fechaIngreso + "]";
     }
-
 }

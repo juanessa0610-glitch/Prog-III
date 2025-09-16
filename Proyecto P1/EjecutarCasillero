@@ -1,0 +1,88 @@
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class EjecutarCasilleroAmazon {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        GestionarCasillero gestor = new GestionarCasillero(3, 3); // matriz de 3x3
+        int opcion = 0;
+
+        do {
+            try {
+                System.out.println("\n- - - - - -MENÚ CASILLEROS AMAZON - - - - - -");
+                System.out.println("1. Registrar un paquete");
+                System.out.println("2. Consultar Casilleros Disponibles");
+                System.out.println("3. Mostrar información de los casilleros");
+                System.out.println("4. Salir");
+                System.out.print("Elige una de las opciones: ");
+
+                opcion = sc.nextInt();
+                sc.nextLine();
+
+                switch (opcion) {
+                    case 1:
+                        try {
+                            System.out.print("Ingrese ID del paquete: ");
+                            int id = sc.nextInt();
+                            sc.nextLine(); // limpiar buffer
+
+                            System.out.print("Ingrese destinatario del paquete: ");
+                            String destinatario = sc.nextLine();
+
+                            System.out.print("Ingrese fecha de ingreso: ");
+                            String fecha = sc.nextLine();
+
+                            gestor.registrarPaquete(id, destinatario, fecha);
+
+                            
+                            mostrarEsquema(gestor);
+                        } catch (InputMismatchException e) {
+                            System.out.println("⚠ Error: El ID debe ser un número entero.");
+                            sc.nextLine(); 
+                        }
+                        break;
+
+                    case 2:
+                        gestor.ConsultarDisponibilidad();
+                        mostrarEsquema(gestor);
+                        break;
+
+                    case 3:
+                        gestor.MostrarInformacion();
+                        mostrarEsquema(gestor);
+                        break;
+
+                    case 4:
+                        System.out.println("Saliendo del sistema... ¡Hasta pronto!");
+                        break;
+
+                    default:
+                        System.out.println("⚠ Opción no válida. Intente de nuevo.");
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("⚠ Error: Debes ingresar un número (1-4).");
+                sc.nextLine(); 
+            } catch (Exception e) {
+                System.out.println("⚠ Error inesperado: " + e.getMessage());
+            }
+
+        } while (opcion != 4);
+
+        sc.close();
+    }
+
+   public static void mostrarEsquema(GestionarCasillero gestor) {
+        System.out.println("\nEsquema de casilleros (X = ocupado, O = libre):");
+        for (int i = 0; i < gestor.casilleros.length; i++) {
+            for (int j = 0; j < gestor.casilleros[i].length; j++) {
+                if (gestor.casilleros[i][j].estaOcupado()) {
+                    System.out.print("[X] ");
+                } else {
+                    System.out.print("[O] ");
+                }
+            }
+            System.out.println();
+        }
+    }
+}

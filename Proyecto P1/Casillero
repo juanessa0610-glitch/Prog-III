@@ -1,4 +1,4 @@
-public class Casillero {
+ppublic class Casillero {
 
     private int numero;
     private boolean ocupado;
@@ -18,9 +18,9 @@ public class Casillero {
         if (!ocupado) {
             this.paquete = paquete;
             this.ocupado = true;
-            System.out.println(" Paquete asignado al casillero " + numero);
+            System.out.println("Paquete asignado al casillero " + numero);
         } else {
-            System.out.println(" Casillero " + numero + " ya está ocupado.");
+            System.out.println("⚠ Casillero " + numero + " ya está ocupado.");
         }
     }
 
@@ -29,6 +29,8 @@ public class Casillero {
             this.paquete = null;
             this.ocupado = false;
             System.out.println("Casillero " + numero + " liberado.");
+        } else {
+            System.out.println("⚠ Casillero " + numero + " ya estaba libre.");
         }
     }
 
