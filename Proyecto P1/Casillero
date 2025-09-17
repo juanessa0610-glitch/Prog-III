@@ -1,4 +1,4 @@
-ppublic class Casillero {
+public class Casillero {
 
     private int numero;
     private boolean ocupado;
