@@ -16,5 +16,20 @@ public class PruebaArray {
 
         int noExiste = nombres.indexOf("Cass");
         System.out.println("El índice de 'Cass' es: " + noExiste);
+
+        System.out.println("\nNombres que empiezan con 'A':");
+        for (String nombre : nombres) {
+            if (nombre.startsWith("A")) {
+                System.out.println(nombre);
+            }
+        }
+
+        String prefijo = "S";
+        System.out.println("\nNombres que empiezan con '" + prefijo + "':");
+        for (String nombre : nombres) {
+            if (nombre.startsWith(prefijo)) {
+                System.out.println(nombre);
+            }
+        }
     }
 }
