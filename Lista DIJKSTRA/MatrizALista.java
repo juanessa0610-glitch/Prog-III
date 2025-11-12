@@ -9,7 +9,7 @@ public class MatrizALista {
             {0, 1, 1, 0}
         };
 
-        // Crear lista de adyacencia
+        
         List<LinkedList<Integer>> lista = new ArrayList<>();
 
         for (int i = 0; i < matriz.length; i++) {
@@ -21,7 +21,7 @@ public class MatrizALista {
             lista.add(nodos);
         }
 
-        // Mostrar la lista
+        
         for (int i = 0; i < lista.size(); i++) {
             System.out.print((char)('A' + i) + " -> ");
             for (int nodo : lista.get(i))
