@@ -1,48 +1,43 @@
 import java.util.*;
 
-// ---------------------------------
-// ALGORITMO DE DIJKSTRA
-// ---------------------------------
-class Dijkstra {
-    public static Map<String, Integer> calcularDistancias(Map<String, List<Nodo>> grafo, String inicio) {
-        Map<String, Integer> distancias = new HashMap<>();
-        for (String nodo : grafo.keySet()) {
-            distancias.put(nodo, Integer.MAX_VALUE);
-        }
-        distancias.put(inicio, 0);
+class DijkstraMatriz {
+    public static int[] calcularDistancias(int[][] grafo, int inicio) {
+        int n = grafo.length;
+        int[] distancias = new int[n];
+        boolean[] visitado = new boolean[n];
 
-        PriorityQueue<Nodo> cola = new PriorityQueue<>(Comparator.comparingInt(n -> n.peso));
-        cola.add(new Nodo(inicio, 0));
+        
+        Arrays.fill(distancias, Integer.MAX_VALUE);
+        distancias[inicio] = 0;
 
-        while (!cola.isEmpty()) {
-            Nodo actual = cola.poll();
-            if (actual.peso > distancias.get(actual.nombre)) continue;
+        
+        for (int i = 0; i < n - 1; i++) {
+            int u = minimoDistancia(distancias, visitado);
+            visitado[u] = true;
 
-            for (Nodo vecino : grafo.get(actual.nombre)) {
-                int nuevaDistancia = distancias.get(actual.nombre) + vecino.peso;
-                if (nuevaDistancia < distancias.get(vecino.nombre)) {
-                    distancias.put(vecino.nombre, nuevaDistancia);
-                    cola.add(new Nodo(vecino.nombre, nuevaDistancia));
+            for (int v = 0; v < n; v++) {
+                if (!visitado[v] && grafo[u][v] != 0 && distancias[u] != Integer.MAX_VALUE
+                        && distancias[u] + grafo[u][v] < distancias[v]) {
+                    distancias[v] = distancias[u] + grafo[u][v];
                 }
             }
         }
         return distancias;
     }
-}
 
-class Nodo {
-    String nombre;
-    int peso;
-
-    public Nodo(String nombre, int peso) {
-        this.nombre = nombre;
-        this.peso = peso;
+    private static int minimoDistancia(int[] distancias, boolean[] visitado) {
+        int min = Integer.MAX_VALUE, indiceMin = -1;
+        for (int v = 0; v < distancias.length; v++) {
+            if (!visitado[v] && distancias[v] <= min) {
+                min = distancias[v];
+                indiceMin = v;
+            }
+        }
+        return indiceMin;
     }
 }
 
-// ---------------------------------
-// MÉTODOS DE ORDENAMIENTO
-// ---------------------------------
+
 class Ordenamientos {
 
     public static int[] burbuja(int[] arr) {
@@ -138,43 +133,50 @@ class Ordenamientos {
     }
 }
 
-// ---------------------------------
-// EJECUTADOR PRINCIPAL
-// ---------------------------------
+
 public class Main {
     public static void main(String[] args) {
-        // ----- Dijkstra -----
-        Map<String, List<Nodo>> grafo = new HashMap<>();
-        grafo.put("A", Arrays.asList(new Nodo("B", 1), new Nodo("C", 4)));
-        grafo.put("B", Arrays.asList(new Nodo("A", 1), new Nodo("C", 2), new Nodo("D", 5)));
-        grafo.put("C", Arrays.asList(new Nodo("A", 4), new Nodo("B", 2), new Nodo("D", 1)));
-        grafo.put("D", Arrays.asList(new Nodo("B", 5), new Nodo("C", 1)));
+        try {
+           
+            int[][] grafo = {
+                {0, 1, 4, 0},
+                {1, 0, 2, 5},
+                {4, 2, 0, 1},
+                {0, 5, 1, 0}
+            };
 
-        System.out.println("Distancias mínimas desde A:");
-        Map<String, Integer> distancias = Dijkstra.calcularDistancias(grafo, "A");
-        for (String nodo : distancias.keySet()) {
-            System.out.println("A → " + nodo + " = " + distancias.get(nodo));
+            String[] nombres = {"A", "B", "C", "D"};
+            int inicio = 0; 
+
+            int[] distancias = DijkstraMatriz.calcularDistancias(grafo, inicio);
+            System.out.println("Distancias mínimas desde " + nombres[inicio] + ":");
+            for (int i = 0; i < distancias.length; i++) {
+                System.out.println(nombres[inicio] + " → " + nombres[i] + " = " + distancias[i]);
+            }
+
+           
+            int[] datos = {64, 25, 12, 22, 11};
+
+            System.out.println("\nLista original: " + Arrays.toString(datos));
+
+            int[] burbuja = datos.clone();
+            System.out.println("Burbuja: " + Arrays.toString(Ordenamientos.burbuja(burbuja)));
+
+            int[] quick = datos.clone();
+            Ordenamientos.quickSort(quick, 0, quick.length - 1);
+            System.out.println("Quick Sort: " + Arrays.toString(quick));
+
+            int[] insercion = Ordenamientos.insercion(datos.clone());
+            System.out.println("Inserción: " + Arrays.toString(insercion));
+
+            int[] seleccion = Ordenamientos.seleccion(datos.clone());
+            System.out.println("Selección: " + Arrays.toString(seleccion));
+
+            int[] merge = Ordenamientos.mergeSort(datos.clone());
+            System.out.println("Merge Sort: " + Arrays.toString(merge));
+
+        } catch (Exception e) {
+            System.out.println("Ocurrió un error: " + e.getMessage());
         }
-
-        // ----- Ordenamientos -----
-        int[] datos = {64, 25, 12, 22, 11};
-
-        System.out.println("\nLista original: " + Arrays.toString(datos));
-
-        int[] burbuja = datos.clone();
-        System.out.println("Burbuja: " + Arrays.toString(Ordenamientos.burbuja(burbuja)));
-
-        int[] quick = datos.clone();
-        Ordenamientos.quickSort(quick, 0, quick.length - 1);
-        System.out.println("Quick Sort: " + Arrays.toString(quick));
-
-        int[] insercion = Ordenamientos.insercion(datos.clone());
-        System.out.println("Inserción: " + Arrays.toString(insercion));
-
-        int[] seleccion = Ordenamientos.seleccion(datos.clone());
-        System.out.println("Selección: " + Arrays.toString(seleccion));
-
-        int[] merge = Ordenamientos.mergeSort(datos.clone());
-        System.out.println("Merge Sort: " + Arrays.toString(merge));
     }
 }
