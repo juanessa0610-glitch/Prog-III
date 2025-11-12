@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class MatrizAListaSimple {
+public class MatrizALista {
     public static void main(String[] args) {
         int[][] matriz = {
             {0, 1, 1, 0},
