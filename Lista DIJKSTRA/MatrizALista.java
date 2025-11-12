@@ -9,22 +9,23 @@ public class MatrizALista {
             {0, 1, 1, 0}
         };
 
-        
-        List<LinkedList<Integer>> lista = new ArrayList<>();
+        // La lista contendrá una lista enlazada por cada fila
+        List<LinkedList<Integer>> listaAdyacencia = new ArrayList<>(matriz.length);
 
+        // Transformar matriz → lista enlazada
         for (int i = 0; i < matriz.length; i++) {
             LinkedList<Integer> nodos = new LinkedList<>();
             for (int j = 0; j < matriz[i].length; j++) {
-                if (matriz[i][j] == 1)
+                if (matriz[i][j] == 1) // hay conexión
                     nodos.add(j);
             }
-            lista.add(nodos);
+            listaAdyacencia.add(nodos); // agregamos la lista enlazada del nodo i
         }
 
-        
-        for (int i = 0; i < lista.size(); i++) {
+        // Mostrar el resultado
+        for (int i = 0; i < listaAdyacencia.size(); i++) {
             System.out.print((char)('A' + i) + " -> ");
-            for (int nodo : lista.get(i))
+            for (int nodo : listaAdyacencia.get(i))
                 System.out.print((char)('A' + nodo) + " ");
             System.out.println();
         }
