@@ -41,4 +41,6 @@ public class Main {
             System.out.println(d);
         }
     }
+
+    //   https://youtu.be/gjd5f0KG9YE
 }
