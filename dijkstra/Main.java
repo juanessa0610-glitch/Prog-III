@@ -6,7 +6,7 @@ class DijkstraMatriz {
         int[] distancias = new int[n];
         boolean[] visitado = new boolean[n];
 
-        
+       
         Arrays.fill(distancias, Integer.MAX_VALUE);
         distancias[inicio] = 0;
 
@@ -137,7 +137,7 @@ class Ordenamientos {
 public class Main {
     public static void main(String[] args) {
         try {
-           
+            
             int[][] grafo = {
                 {0, 1, 4, 0},
                 {1, 0, 2, 5},
@@ -146,7 +146,7 @@ public class Main {
             };
 
             String[] nombres = {"A", "B", "C", "D"};
-            int inicio = 0; 
+            int inicio = 0;
 
             int[] distancias = DijkstraMatriz.calcularDistancias(grafo, inicio);
             System.out.println("Distancias mínimas desde " + nombres[inicio] + ":");
@@ -154,7 +154,7 @@ public class Main {
                 System.out.println(nombres[inicio] + " → " + nombres[i] + " = " + distancias[i]);
             }
 
-           
+            
             int[] datos = {64, 25, 12, 22, 11};
 
             System.out.println("\nLista original: " + Arrays.toString(datos));
